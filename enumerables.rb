@@ -1,10 +1,10 @@
 module Enumerable
-    def my_each
-      arr = self
-        for i in arr
-          yield(i)
-        end
-    end
+  def my_each
+    arr = self
+      for i in arr
+        yield(i)
+      end
+  end
   ([1,2,3,4,5]).my_each {| i |}
 
   def my_each_with_index
@@ -14,6 +14,7 @@ module Enumerable
         yield(i, v)
       end
   end
-([1,2,3,4,5]).my_each_with_index {| v, i | puts "#{i} => #{v}"}
+[1,2,3,4,5].my_each_with_index {| v, i | puts "#{i} => #{v}"}
 
-  end
+
+end
