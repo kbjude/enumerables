@@ -58,7 +58,6 @@ end
       my_each { |i| yield i if i.nil? || i == false }
     end
     true
-    end
   end
   def my_none(argument = nil)
     arr = self
@@ -70,7 +69,6 @@ end
       my_each { |i| yield i if i.nil? && i == false }
     end
     true
-    end
   end
   def my_map
     arr = self
@@ -80,6 +78,15 @@ end
         yield i
       end
       mapped_arr
+  end
+  def my_reject
+    arr = self
+    sum = 0
+      arr.my_each do |i| i
+        sum = sum + i
+        sum(yield i)
+      end
+      sum
   end
   end
 end
