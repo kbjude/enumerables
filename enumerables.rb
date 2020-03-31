@@ -5,7 +5,6 @@ module Enumerable
         yield(i)
       end
   end
-  ([1,2,3,4,5]).my_each {| i |}
 
   def my_each_with_index
     arr = self
@@ -14,7 +13,6 @@ module Enumerable
         yield(i, v)
       end
   end
-[1,2,3,4,5].my_each_with_index {| v, i | puts "#{i} => #{v}"}
 
 def my_select
   arr = self
@@ -38,19 +36,19 @@ def my_all(argument = nil)
   true
   end
 end
-def my_any(argument = nil)
-    arr = self
-    if block_given?
-      arr.my_each do |i|
-      yield(i)
-      end
-    else
-      my_each { |i| return false if i.nil?}
-    end
-    true
-    end
-  end
-  def my_any(argument = nil)
+# def my_any(argument = nil)
+#     arr = self
+#     if block_given?
+#       arr.my_each do |i|
+#       yield(i)
+#       end
+#     else
+#       my_each { |i| return false if i.nil?}
+#     end
+#     true
+#     end
+#   end
+  def my_all(argument = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
@@ -62,7 +60,7 @@ def my_any(argument = nil)
     true
     end
   end
-  def my_any(argument = nil)
+  def my_none(argument = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
@@ -74,12 +72,15 @@ def my_any(argument = nil)
     true
     end
   end
-  def my_all
+  def my_map
     arr = self
-    count = 0
-    arr.my_each do |i|
-        count +=1
-    end
+    mapped_arr =[]
+      arr.my_each do |i| i
+        mapped_arr.push(yield i)
+        yield i
+      end
+      mapped_arr
+  end
   end
 end
 end
