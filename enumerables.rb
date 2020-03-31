@@ -18,11 +18,36 @@ module Enumerable
 
 def my_select
   arr = self
+  result = []
   for i in arr
-      if i > 2
-      yield i
+    if  yield i
+      result.push(i)
       end
   end
+  result
 end
-[3,4,1,8,4,2,5].my_select  { |i| puts i}
+def my_all(argument = nil)
+  arr = self
+  if block_given?
+    arr.my_each do |i|
+    return false unless yield(i)
+    end
+  else
+    my_each { |i| return false if i.nil? || i == false }
+  end
+  true
+  end
+end
+def my_any(argument = nil)
+    arr = self
+    if block_given?
+      arr.my_each do |i|
+      yield(i)
+      end
+    else
+      my_each { |i| return false if i.nil?}
+    end
+    true
+    end
+  end
 end
