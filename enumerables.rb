@@ -50,4 +50,16 @@ def my_any(argument = nil)
     true
     end
   end
+  def my_any(argument = nil)
+    arr = self
+    if block_given?
+      arr.my_each do |i|
+      return false
+      end
+    else
+      my_each { |i| yield i if i.nil? || i == false }
+    end
+    true
+    end
+  end
 end
