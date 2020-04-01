@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-public
+# enumerable methods
 module Enumerable
   def my_each
     arr = self
@@ -48,43 +48,42 @@ module Enumerable
       my_each { |i| return false if i.nil? }
     end
     true
-    end
   end
 
-def my_none(_argument = nil)
-  arr = self
-  if block_given?
+  def my_none(_argument = nil)
+    arr = self
+    if block_given?
+      arr.my_each do |i|
+        return false if yield i
+      end
+    else
+      my_each { |i| yield i if i.nil? && i == false }
+    end
+    true
+  end
+
+  def my_map
+    arr = self
+    mapped_arr = []
     arr.my_each do |i|
-      return false if yield i
+      mapped_arr.push(yield i)
+      yield i
     end
-  else
-    my_each { |i| yield i if i.nil? && i == false }
+    mapped_arr
   end
-  true
-end
 
-def my_map
-  arr = self
-  mapped_arr = []
-  arr.my_each do |i|
-    mapped_arr.push(yield i)
-    yield i
+  def my_inject
+    arr = self
+    result = 0
+    arr.my_each do |i|
+      result = yield(result, i)
+    end
+    result
   end
-  mapped_arr
-end
 
-def my_inject
-  arr = self
-  result = 0
-  arr.my_each do |i|
-    result = yield(result, i)
+  def multiply_els
+    arr = self
+    arr.my_inject { |result, i| result + i }
   end
-  result
-end
-
-def multiply_els
-  arr = self
-  arr.my_inject { |result, i| result + i }
-end
 end
 [1, 2, 3, 5].multiply_els
