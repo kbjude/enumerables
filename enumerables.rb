@@ -5,6 +5,7 @@ module Enumerable
         yield(i)
       end
   end
+
   def my_each_with_index
     arr = self
       for i in arr
@@ -12,6 +13,7 @@ module Enumerable
         yield(i, v)
       end
   end
+
   def my_select
     arr = self
     result = []
@@ -22,6 +24,7 @@ module Enumerable
     end
     result
   end
+
   def my_all(argument = nil)
     arr = self
     if block_given?
@@ -33,6 +36,7 @@ module Enumerable
     end
     true
   end
+
   def my_all(argument = nil)
     arr = self
     if block_given?
@@ -44,6 +48,7 @@ module Enumerable
     end
     true
   end
+
   def my_none(argument = nil)
     arr = self
     if block_given?
@@ -55,6 +60,7 @@ module Enumerable
     end
     true
   end
+
   def my_map
     arr = self
     mapped_arr =[]
@@ -64,6 +70,7 @@ module Enumerable
       end
       mapped_arr
   end
+
   def my_inject
     arr = self
     result = 0
@@ -72,6 +79,7 @@ module Enumerable
       end
     result
   end
+  
   def multiply_els
     arr = self
     arr.my_inject {|result, i| result + i}
