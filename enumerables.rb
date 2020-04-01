@@ -1,3 +1,4 @@
+public
 module Enumerable
   def my_each
     arr = self
@@ -79,7 +80,7 @@ module Enumerable
       end
     result
   end
-  
+
   def multiply_els
     arr = self
     arr.my_inject {|result, i| result + i}
