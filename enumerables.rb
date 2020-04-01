@@ -1,36 +1,36 @@
+# frozen_string_literal: true
+
 public
 module Enumerable
   def my_each
     arr = self
-      for i in arr
-        yield(i)
-      end
+    arr.each do |i|
+      yield(i)
+    end
   end
 
   def my_each_with_index
     arr = self
-      for i in arr
-        v = arr.find_index(i)
-        yield(i, v)
-      end
+    arr.each do |i|
+      v = arr.find_index(i)
+      yield(i, v)
+    end
   end
 
   def my_select
     arr = self
     result = []
-    for i in arr
-      if  yield i
-        result.push(i)
-        end
+    arr.each do |i|
+      result.push(i) if yield i
     end
     result
   end
 
-  def my_all(argument = nil)
+  def my_all(_argument = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
-      return false unless yield(i)
+        return false unless yield(i)
       end
     else
       my_each { |i| return false if i.nil? || i == false }
@@ -38,52 +38,53 @@ module Enumerable
     true
   end
 
-  def my_all(argument = nil)
+  def my_any(_argument = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
-      return false
+        yield(i)
       end
     else
-      my_each { |i| yield i if i.nil? || i == false }
+      my_each { |i| return false if i.nil? }
     end
     true
-  end
-
-  def my_none(argument = nil)
-    arr = self
-    if block_given?
-      arr.my_each do |i|
-      return false if yield i
-      end
-    else
-      my_each { |i| yield i if i.nil? && i == false }
     end
-    true
   end
 
-  def my_map
-    arr = self
-    mapped_arr =[]
-      arr.my_each do |i| i
-        mapped_arr.push(yield i)
-        yield i
-      end
-      mapped_arr
-  end
-
-  def my_inject
-    arr = self
-    result = 0
+def my_none(_argument = nil)
+  arr = self
+  if block_given?
     arr.my_each do |i|
-      result = yield(result, i)
-      end
-    result
+      return false if yield i
+    end
+  else
+    my_each { |i| yield i if i.nil? && i == false }
   end
-
-  def multiply_els
-    arr = self
-    arr.my_inject {|result, i| result + i}
-  end
-  [1,2,3,5].multiply_els
+  true
 end
+
+def my_map
+  arr = self
+  mapped_arr = []
+  arr.my_each do |i|
+    mapped_arr.push(yield i)
+    yield i
+  end
+  mapped_arr
+end
+
+def my_inject
+  arr = self
+  result = 0
+  arr.my_each do |i|
+    result = yield(result, i)
+  end
+  result
+end
+
+def multiply_els
+  arr = self
+  arr.my_inject { |result, i| result + i }
+end
+end
+[1, 2, 3, 5].multiply_els
