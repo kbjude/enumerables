@@ -35,7 +35,7 @@ module Enumerable
     result
   end
 
-  def my_all(_argument = nil)
+  def my_all(_arg = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
