@@ -61,7 +61,7 @@ module Enumerable
     false
   end
 
-  def my_none(_argument = nil)
+  def my_none?(arg = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
@@ -83,9 +83,8 @@ module Enumerable
     mapped_arr
   end
 
-  def my_inject
+  def my_inject(result = 0)
     arr = self
-    result = 0
     arr.my_each do |i|
       result = yield(result, i)
     end
