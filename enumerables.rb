@@ -47,16 +47,18 @@ module Enumerable
     true
   end
 
-  def my_any(_argument = nil)
+  def my_any?(arg=nil)
     arr = self
     if block_given?
       arr.my_each do |i|
         yield(i)
+        return true
       end
     else
-      my_each { |i| return false if i.nil? }
+      arr.my_each {|i| !i.nil? && !i==false}
+      return true
     end
-    true
+    false
   end
 
   def my_none(_argument = nil)
