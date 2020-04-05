@@ -4,16 +4,25 @@
 module Enumerable
   def my_each
     arr = self
-    arr.each do |i|
-      yield(i)
+    if block_given?
+      for i in arr
+        yield(i)
+        puts i
+      end
+    else
+      arr.to_enum(:my_each)
     end
   end
 
   def my_each_with_index
     arr = self
-    arr.each do |i|
-      v = arr.find_index(i)
-      yield(i, v)
+    if block_give?
+      arr.my_each do |i|
+        v = arr.find_index(i)
+        yield(i, v)
+      end
+    else
+      arr.to_enum(:my_each_with_index)
     end
   end
 
