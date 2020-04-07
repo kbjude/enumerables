@@ -21,7 +21,7 @@ I added my methods in the Enumerable module:
 Ruby
 
 ## Usage
-It use these methods 1. You have to have Ruby installed on you computer and run each of them on the irb command line 2. Use the online editors like [repl]{https://repl.it/repls/WillingScientificButton}
+It use these methods 1. You have to have Ruby installed on you computer and run each of them on the irb command line 2. Use the online editors like [repl](https://repl.it/repls/WillingScientificButton)
 
 # Authors
 Jude Kajura
