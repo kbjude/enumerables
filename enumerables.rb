@@ -35,33 +35,30 @@ module Enumerable
     result
   end
 
-  def my_all(_arg = nil)
+  def my_all?(arg = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
         return false unless yield(i)
       end
     else
-      my_each { |i| return false if i.nil? || i == false }
+      my_each { |i| return false if !i.is_a? arg }
     end
     true
   end
-
-  def my_any?(arg=nil)
+  def my_any?( arg = nil )
     arr = self
     if block_given?
-      arr.my_each do |i|
-        yield(i)
-        return true
+      arr.my_each do |i| 
+        return true if yield(i)
       end
     else
-      arr.my_each {|i| !i.nil? && !i==false}
-      return true
+      my_each { |i| return true if i.is_a? arg }
     end
     false
   end
 
-  def my_none?(arg = nil)
+  def my_none?( arg = nil )
     arr = self
     if block_given?
       arr.my_each do |i|
@@ -83,7 +80,7 @@ module Enumerable
     mapped_arr
   end
 
-  def my_inject(result = 0)
+  def my_inject(result = nil)
     arr = self
     arr.my_each do |i|
       result = yield(result, i)
@@ -93,7 +90,11 @@ module Enumerable
 
   def multiply_els
     arr = self
-    arr.my_inject { |result, i| result + i }
+    arr.my_inject do |result, i|
+      if result.nil?
+        result = 1
+      end
+      result * i
+    end
   end
-end
 [1, 2, 3, 5].multiply_els
