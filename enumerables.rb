@@ -65,7 +65,7 @@ module Enumerable
         return false if yield i
       end
     else
-      my_each { |i| yield i if i.nil? && i == false }
+      my_each { |i| return false if i.is_a? arg }
     end
     true
   end
