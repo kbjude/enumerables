@@ -3,7 +3,7 @@
 About the Project
 This is a Solo project about ruby enumerables, recreating the ruby enumerables in my own way to make sure that they do what they do while being used in ruby. 10 are the chosen methods and they are as indicated in the features below: 
 
-# Features
+### Features
 I added my methods in the Enumerable module:
 
 #my_each
@@ -17,12 +17,12 @@ I added my methods in the Enumerable module:
 #my_inject
 #multiply_els
 
-# Technologies used
+### Technologies used
 Ruby
 
-## Usage
+### Usage
 It use these methods 1. You have to have Ruby installed on you computer and run each of them on the irb command line 2. Use the online editors like [repl](https://repl.it/repls/WillingScientificButton)
 
-# Authors
+### Authors
 Jude Kajura
 
