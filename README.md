@@ -1,7 +1,7 @@
 # Enumerables
 
 About the Project
-This is a Solo project about ruby enumerablese: 
+This is a Solo project about ruby enumerables, recreating the ruby enumerables in my own way to make sure that they do what they do while being used in ruby. 10 are the chosen methods and they are as indicated in the features below: 
 
 # Features
 I added my methods in the Enumerable module:
