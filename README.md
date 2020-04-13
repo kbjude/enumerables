@@ -6,8 +6,8 @@ This is a Solo project about ruby enumerables, recreating the ruby enumerables i
 ### Features
 I added my methods in the Enumerable module:
 
-#my_each
-#my_each_with_index
+#my_each <br/>
+#my_each_with_index<br/>
 #my_select
 #my_all?
 #my_any?
