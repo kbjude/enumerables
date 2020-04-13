@@ -88,20 +88,20 @@ module Enumerable
     arr = self
     count = 0
     if args != nil
-      my_each { |i| count += 1 if i == args }
+      puts "First test"
+      arr.my_select{|i| i == args}.my_each{ |i| count += 1}
+      puts "second"
       return count
-    end
-    if block_give?
+    elsif block_given?
       arr.my_each do |i|
-      count +=i
-      if yield(i)
+      result = count += 1
+      yield(result)
       end
     else
       my_each {count +=1}
     end
     count
   end
-  [12,3,4,6].my_count{|i| puts i}
 
   def my_inject(start = nil, arg = nil)
     arr = self
