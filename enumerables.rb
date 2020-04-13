@@ -48,28 +48,27 @@ module Enumerable
       arr.my_each { |i| true if i =~ arg }
     elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
     else
-      my_each { |i| return false if !i.is_a? arg }
+      my_each { |i| return false unless i.is_a? arg }
     end
     true
   end
 
-  def my_any?( arg = nil )
+  def my_any?(arg = nil)
     arr = self
     if block_given?
-      arr.my_each do |i| 
+      arr.my_each do |i|
         return true if yield(i)
       end
     elsif arg.class == Regexp
       arr.my_each { |i| true if i =~ arg }
-    elsif
-      arr.my_each { |i| true if i == arg && i.class <= arg.class }
+    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return true if i.is_a? arg }
     end
     false
   end
 
-  def my_none?( arg = nil )
+  def my_none?(arg = nil)
     arr = self
     if block_given?
       arr.my_each do |i|
@@ -77,8 +76,7 @@ module Enumerable
       end
     elsif arg.class == Regexp
       arr.my_each { |i| false if i =~ arg }
-    elsif
-      arr.my_each { |i| false if i == arg && i.class <= arg.class }
+    elsif arr.my_each { |i| false if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false if i.is_a? arg }
     end
@@ -92,7 +90,7 @@ module Enumerable
       arr.my_each do |i|
         mapped_arr.push(yield i)
         yield i
-        end
+      end
       mapped_arr
     else
       arr.to_enum(:my_map)
@@ -102,13 +100,13 @@ module Enumerable
   def my_count(args = nil)
     arr = self
     count = 0
-    if args != nil
-      arr.my_select{ |i| i == args }.my_each { count += 1}
+    if !args.nil?
+      arr.my_select { |i| i == args }.my_each { count += 1 }
       return count
     elsif block_given?
       arr.my_each do
-      result = count += 1
-      yield(result)
+        result = count += 1
+        yield(result)
       end
     else
       my_each { count += 1 }
@@ -118,18 +116,18 @@ module Enumerable
 
   def my_inject(start = nil, arg = nil)
     arr = self
-  if arg == nil? && block_given?
-    result = start
-    arr.my_each do |i|
-      result = 
-      if result.nil?
-          i
-        else
-        yield(result, i)
+    if arg == nil? && block_given?
+      result = start
+      arr.my_each do |i|
+        result =
+          if result.nil?
+            i
+          else
+            yield(result, i)
+          end
       end
-    end
-  elsif (start.class != Symbol && arg.nil?) && start.class == Integer
-      warn "The value #{ start } is not a symbol rep"
+    elsif (start.class != Symbol && arg.nil?) && start.class == Integer
+      warn "The value #{start} is not a symbol rep"
       abort
     elsif start.class == Symbol
       if start == :+
@@ -145,18 +143,16 @@ module Enumerable
       new_arr = arr.to_a
       new_arr.unshift(start)
       result = new_arr.my_inject(arg)
-  end
-  result
+    end
+    result
   end
 
   def multiply_els
     arr = self
     arr.my_inject do |result, i|
-      if result.nil?
-        result = 1
-      end
+      result = 1 if result.nil?
       result * i
     end
   end
-[1, 2, 3, 5].multiply_els
+  [1, 2, 3, 5].multiply_els
 end
