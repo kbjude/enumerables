@@ -7,7 +7,6 @@ module Enumerable
     if block_given?
       for i in arr
         yield(i)
-        puts i
       end
     else
       arr.to_enum(:my_each)
@@ -17,7 +16,7 @@ module Enumerable
   def my_each_with_index
     arr = self
     if block_given?
-      arr.my_each do |i, p|
+      arr.my_each do |i|
         v = arr.find_index(i)
         yield(i, v)
       end
@@ -104,17 +103,15 @@ module Enumerable
     arr = self
     count = 0
     if args != nil
-      puts "First test"
-      arr.my_select{|i| i == args}.my_each{ | i | count += 1}
-      puts "second"
+      arr.my_select{ |i| i == args }.my_each { count += 1}
       return count
     elsif block_given?
-      arr.my_each do |i|
+      arr.my_each do
       result = count += 1
       yield(result)
       end
     else
-      my_each { count + = 1 }
+      my_each { count += 1 }
     end
     count
   end
