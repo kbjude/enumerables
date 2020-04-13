@@ -72,17 +72,40 @@ module Enumerable
 
   def my_map
     arr = self
-    mapped_arr = []
-    arr.my_each do |i|
-      mapped_arr.push(yield i)
-      yield i
+    if block_given?
+      mapped_arr = []
+      arr.my_each do |i|
+        mapped_arr.push(yield i)
+        yield i
+        end
+      mapped_arr
+    else
+      arr.to_enum(:my_map)
     end
-    mapped_arr
   end
+
+  def my_count(args = nil)
+    arr = self
+    count = 0
+    if args != nil
+      my_each { |i| count += 1 if i == args }
+      return count
+    end
+    if block_give?
+      arr.my_each do |i|
+      count +=i
+      if yield(i)
+      end
+    else
+      my_each {count +=1}
+    end
+    count
+  end
+  [12,3,4,6].my_count{|i| puts i}
 
   def my_inject(result = nil)
     arr = self
-    arr.my_each do |i|
+    arr.my_each do |i, v|
       result = yield(result, i)
     end
     result
@@ -98,3 +121,4 @@ module Enumerable
     end
   end
 [1, 2, 3, 5].multiply_els
+end
