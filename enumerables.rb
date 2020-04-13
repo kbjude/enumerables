@@ -41,17 +41,26 @@ module Enumerable
       arr.my_each do |i|
         return false unless yield(i)
       end
+    elsif arg.class == Regexp
+      arr.my_each { |i| true if i =~ arg }
+    elsif
+      arr.my_each { |i| true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false if !i.is_a? arg }
     end
     true
   end
+
   def my_any?( arg = nil )
     arr = self
     if block_given?
       arr.my_each do |i| 
         return true if yield(i)
       end
+    elsif arg.class == Regexp
+      arr.my_each { |i| true if i =~ arg }
+    elsif
+      arr.my_each { |i| true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return true if i.is_a? arg }
     end
@@ -64,6 +73,10 @@ module Enumerable
       arr.my_each do |i|
         return false if yield i
       end
+    elsif arg.class == Regexp
+      arr.my_each { |i| false if i =~ arg }
+    elsif
+      arr.my_each { |i| false if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false if i.is_a? arg }
     end
@@ -89,7 +102,7 @@ module Enumerable
     count = 0
     if args != nil
       puts "First test"
-      arr.my_select{|i| i == args}.my_each{ |i| count += 1}
+      arr.my_select{|i| i == args}.my_each{ | i | count += 1}
       puts "second"
       return count
     elsif block_given?
@@ -136,7 +149,7 @@ module Enumerable
     end
   end
   result
-end
+  end
 
   def multiply_els
     arr = self
