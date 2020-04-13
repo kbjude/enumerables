@@ -47,8 +47,7 @@ module Enumerable
       end
     elsif arg.class == Regexp
       arr.my_each { |i| true if i =~ arg }
-    elsif
-      arr.my_each { |i| true if i == arg && i.class <= arg.class }
+    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false if !i.is_a? arg }
     end
@@ -115,7 +114,7 @@ module Enumerable
       yield(result)
       end
     else
-      my_each {count +=1}
+      my_each { count + = 1 }
     end
     count
   end
@@ -132,9 +131,8 @@ module Enumerable
         yield(result, i)
       end
     end
-  else
-    if (start.class != Symbol && arg.nil?) && start.class == Integer
-      warn "The value #{start} is not a symbol rep"
+  elsif (start.class != Symbol && arg.nil?) && start.class == Integer
+      warn "The value #{ start } is not a symbol rep"
       abort
     elsif start.class == Symbol
       if start == :+
@@ -150,7 +148,6 @@ module Enumerable
       new_arr = arr.to_a
       new_arr.unshift(start)
       result = new_arr.my_inject(arg)
-    end
   end
   result
   end
