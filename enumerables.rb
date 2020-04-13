@@ -16,8 +16,8 @@ module Enumerable
 
   def my_each_with_index
     arr = self
-    if block_give?
-      arr.my_each do |i|
+    if block_given?
+      arr.my_each do |i,v|
         v = arr.find_index(i)
         yield(i, v)
       end
@@ -28,9 +28,13 @@ module Enumerable
 
   def my_select
     arr = self
-    result = []
-    arr.each do |i|
-      result.push(i) if yield i
+    if block_given?
+      result = []
+      arr.each do |i|
+        result.push(i) if yield i
+      end
+    else
+      arr.to_enum(:my_select)
     end
     result
   end
