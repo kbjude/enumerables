@@ -17,7 +17,7 @@ module Enumerable
   def my_each_with_index
     arr = self
     if block_given?
-      arr.my_each do |i,v|
+      arr.my_each do |i, p|
         v = arr.find_index(i)
         yield(i, v)
       end
@@ -30,7 +30,7 @@ module Enumerable
     arr = self
     if block_given?
       result = []
-      arr.each do |i|
+      arr.my_each do |i|
         result.push(i) if yield i
       end
     else
