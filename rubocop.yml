@@ -3,13 +3,15 @@ AllCops:
     - "README.md"
     - "Guardfile"
     - "Rakefile"
+    - "convention"
+    - 'my.rb'
 
   DisplayCopNames: true
 
 Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
-  Max: 20
+  Max: 35
 Metrics/AbcSize:
   Max: 50
 Metrics/ClassLength:
@@ -24,7 +26,7 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/EachForSimpleLoop:
-  Enabled: false
+  Enabled: true
 Style/AndOr:
   Enabled: false
 Style/DefWithParentheses:
