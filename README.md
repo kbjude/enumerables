@@ -8,14 +8,14 @@ I added my methods in the Enumerable module:
 
 #my_each <br/>
 #my_each_with_index<br/>
-#my_select
-#my_all?
-#my_any?
-#my_none?
-#my_count
-#my_map - that takse in a block
-#my_inject
-#multiply_els
+#my_select <br/>
+#my_all? <br/>
+#my_any? <br/>
+#my_none? <br/>
+#my_count <br/>
+#my_map - that takse in a block <br/>
+#my_inject <br/>
+#multiply_els <br/>
 
 ### Technologies used
 Ruby
@@ -25,4 +25,5 @@ It use these methods 1. You have to have Ruby installed on you computer and run 
 
 ### Authors
 Jude Kajura
+[Github](https://github.com/)
 
