@@ -103,13 +103,40 @@ module Enumerable
   end
   [12,3,4,6].my_count{|i| puts i}
 
-  def my_inject(result = nil)
+  def my_inject(start = nil, arg = nil)
     arr = self
-    arr.my_each do |i, v|
-      result = yield(result, i)
+  if arg == nil? && block_given?
+    result = start
+    arr.my_each do |i|
+      result = 
+      if result.nil?
+          i
+        else
+        yield(result, i)
+      end
     end
-    result
+  else
+    if (start.class != Symbol && arg.nil?) && start.class == Integer
+      warn "The value #{start} is not a symbol rep"
+      abort
+    elsif start.class == Symbol
+      if start == :+
+        result = arr.my_inject { |i, v| i + v }
+      elsif start == :*
+        result = arr.my_inject { |i, v| i * v }
+      elsif start == :-
+        result = arr.my_inject { |i, v| i - v }
+      elsif start == :/
+        result = arr.my_inject { |i, v| i / v }
+      end
+    elsif start.class == Integer && arg.class == Symbol
+      new_arr = arr.to_a
+      new_arr.unshift(start)
+      result = new_arr.my_inject(arg)
+    end
   end
+  result
+end
 
   def multiply_els
     arr = self
