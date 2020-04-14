@@ -17,6 +17,16 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   ExcludedMethods: ['describe']
   Max: 30
+Metrics/CyclomaticComplexity:
+  Max: 15
+Metrics/PerceivedComplexity:
+  Max: 15
+Metrics/MethodLength:
+  Max: 50
+Metrics/PerceivedComplexity:
+  Max: 18
+Metrics/ModuleLength:
+  Max: 145
 
 
 Style/Documentation:
@@ -31,6 +41,10 @@ Style/DefWithParentheses:
   Enabled: false
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+Style/For:
+  Enabled: false
+  EnforcedStyle: for
+  AutoCorrect: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: key
