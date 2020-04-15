@@ -1,4 +1,5 @@
 AllCops:
+  DisabledByDefault: true
   Exclude:
     - "README.md"
     - "Guardfile"
@@ -8,8 +9,6 @@ AllCops:
 
 Layout/LineLength:
   Max: 120
-Metrics/MethodLength:
-  Max: 20
 Metrics/AbcSize:
   Max: 50
 Metrics/ClassLength:
@@ -17,6 +16,14 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   ExcludedMethods: ['describe']
   Max: 30
+Metrics/CyclomaticComplexity:
+  Max: 15
+Metrics/MethodLength:
+  Max: 50
+Metrics/PerceivedComplexity:
+  Max: 18
+Metrics/ModuleLength:
+  Max: 145
 
 
 Style/Documentation:
@@ -24,13 +31,17 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/EachForSimpleLoop:
-  Enabled: false
+  Enabled: true
 Style/AndOr:
   Enabled: false
 Style/DefWithParentheses:
   Enabled: false
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+Style/For:
+  Enabled: false
+  EnforcedStyle: for
+  AutoCorrect: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: key
