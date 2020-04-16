@@ -5,6 +5,8 @@ RSpec.describe Enumerable do
     let(:new_arr) { [ ] }
     let(:arg) { 26 }
     let(:count) { 5 }
+    let(:params) {nil}
+    let(:start) {nil}
 
 
     describe '#.my_each' do
@@ -151,6 +153,23 @@ RSpec.describe Enumerable do
 
             it 'returns a count of items in the array basing on the input of the argument' do
                 expect(arr.my_count{ |i|(arg > i)}).to eql(5)
+            end
+        end
+    end
+
+    describe '#my_inject' do
+        context 'When block is given' do
+        
+            it 'Returns the nil when no argument is given' do
+                expect(arr.my_inject { |i|}).to eql(nil)
+            end
+
+            it 'Returns the nil when no argument is given' do
+                expect(arr.my_inject{|i, start| start? }).to eql(nil)
+            end
+
+            it 'Returns the nil when no argument is k given' do
+                expect(arr.my_inject(arg){|i,|}).to eql(1)
             end
         end
     end
