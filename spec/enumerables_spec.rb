@@ -65,8 +65,31 @@ RSpec.describe Enumerable do
         end
         context 'When no block is given' do
             it 'returns an true or false depending on the argument' do
-                expect( arr.my_all?  ( arg.class == Integer )).to eql( true )
+                expect( arr.my_all?( arg.class == Integer )).to eql( true )
             end
         end
-  end
+    end
+
+    describe '#my_any?' do
+        context 'When a block is provided' do
+            it 'returns true when any of the number in the array is true' do
+                expect(arr.my_any? { |i| i.class == Integer }).to eql(true)
+            end
+
+            it 'returns true when any of the number in the array is true' do
+                expect(arr.my_any? { |i| i == 4 }).to eql(true)
+            end
+
+            it 'returns true when any of the items in the array is true' do
+                expect(arr.my_any? { |i| i.class == String }).to eql(false)
+            end
+        end
+
+        context 'When no block is given but arguments' do
+
+            it 'returns true when the class of one of the items is similar to the class for the argument' do
+                expect(arr.my_any?(arg == 23)).to eql(false)
+            end
+        end
+    end
 end
