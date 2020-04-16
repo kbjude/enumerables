@@ -15,19 +15,19 @@ RSpec.describe Enumerable do
                 expect(data.my_inject(:*)).to eql(1440)
             end
         end
-        # context 'When block is given' do
+        context 'When block is given' do
 
-        #     it 'when a number and a symbol are passed' do
-        #         expect(data.my_inject {})).to eql(10)
-        #     end
+            it 'when items of the array arrat multiplied against each other' do
+                expect(data.my_inject { |i| i * i }).to eql(43046721)
+            end
 
-        #     xit 'when a number and a symbol are passed' do
-        #         expect(data.my_inject( 5, :* )).to eql(7200)
-        #     end
+            it 'when a number and a symbol are passed' do
+                expect(data.my_inject{ | v, i| 5 * i }).to eql(20)
+            end
 
-        #     xit 'when a number and a symbol are passed' do
-        #         expect(data.my_inject(:*)).to eql(1440)
-        #     end
-        # end
+            it 'returns all the items in a range' do
+                expect((2..15).my_inject(:*)).to eql(1307674368000)
+            end
+        end
     end
 end
