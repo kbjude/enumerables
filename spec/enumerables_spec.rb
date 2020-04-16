@@ -4,6 +4,7 @@ RSpec.describe Enumerable do
     let(:arr) { [1, 2, 3, 4, 3] }
     let(:new_arr) { [ ] }
     let(:arg) { 26 }
+    let(:count) { 5 }
 
 
     describe '#.my_each' do
@@ -111,6 +112,45 @@ RSpec.describe Enumerable do
         context 'When no block is given' do
             it 'returns false when the argument is an integer' do
                 expect( arr.my_none?( arg == 23 )).to eql( true )
+            end
+        end
+    end
+
+    describe '#my_map' do
+        context 'When a block is provided' do
+            it 'creates a new empty array to receive the items from the other array' do
+                expect(arr.my_map { |i| i }).to eql([1, 2, 3, 4, 3])
+            end
+
+            it 'returns true and false items in a new with ternary operators ' do
+                expect(arr.my_map { |i| i.even? }).to eql([false, true, false, true, false])
+            end
+        end
+
+        context 'When no block is given but arguments' do
+
+            it 'returns true when the class of one of the items is similar to the class for the argument' do
+                expect(arr.my_map).to be_instance_of(Enumerator)
+            end
+        end
+    end
+
+    describe '#my_count' do
+        context 'When a block is given' do
+            it 'counts the items in the array and returns total' do
+                expect(arr.my_count { |i| }).to eql(count)
+            end
+
+        end
+
+        context 'When no block is given but arguments' do
+
+            it 'returns a count of items in the array basing on the input of the argument' do
+                expect(arr.my_count(arg)).to eql(0)
+            end
+
+            it 'returns a count of items in the array basing on the input of the argument' do
+                expect(arr.my_count{ |i|(arg > i)}).to eql(5)
             end
         end
     end
