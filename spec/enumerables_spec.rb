@@ -5,8 +5,7 @@ RSpec.describe Enumerable do
     let(:new_arr) { [ ] }
     let(:arg) { 26 }
     let(:count) { 5 }
-    let(:params) {nil}
-    let(:start) {nil}
+    let(:word) {['ChristLord', 'Living', 'Life', 'Love']}
 
 
     describe '#.my_each' do
@@ -54,9 +53,6 @@ RSpec.describe Enumerable do
     describe '#.my_all?' do
 
         context 'When array and block are given'do
-            it 'returns true when all the items in the array are true' do
-                expect( arr.my_all? { |i| i.class == Integer }).to eql(true)
-            end
 
             it 'returns false when not all the items in the array are true' do
                 expect( arr.my_all? { |i| i.even? }).to eql(false)
@@ -81,10 +77,6 @@ RSpec.describe Enumerable do
 
             it 'returns true when any of the number in the array is true' do
                 expect(arr.my_any? { |i| i == 4 }).to eql(true)
-            end
-
-            it 'returns true when any of the items in the array is true' do
-                expect(arr.my_any? { |i| i.class == String }).to eql(false)
             end
         end
 
@@ -153,23 +145,6 @@ RSpec.describe Enumerable do
 
             it 'returns a count of items in the array basing on the input of the argument' do
                 expect(arr.my_count{ |i|(arg > i)}).to eql(5)
-            end
-        end
-    end
-
-    describe '#my_inject' do
-        context 'When block is given' do
-        
-            it 'Returns the nil when no argument is given' do
-                expect(arr.my_inject { |i|}).to eql(nil)
-            end
-
-            it 'Returns the nil when no argument is given' do
-                expect(arr.my_inject{|i, start| start? }).to eql(nil)
-            end
-
-            it 'Returns the nil when no argument is k given' do
-                expect(arr.my_inject(arg){|i,|}).to eql(1)
             end
         end
     end
