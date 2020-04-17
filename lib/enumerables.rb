@@ -135,11 +135,11 @@ module Enumerable
         if start == :+
           result = arr.my_inject { |i , v| i + v }
         elsif start == :*
-          result = arr.my_inject { |i , v| i * v  }
+          result = arr.my_inject { |i , v| i * v }
         elsif start == :-
-          result = arr.my_inject { |i , v| i - v  }
+          result = arr.my_inject { |i , v| i - v }
         elsif start == :/
-          result = arr.my_inject { |i , v| i / v  }
+          result = arr.my_inject { |i , v| i / v }
         end
       elsif start.class == Integer && arg.class == Symbol
         new_arr = arr.to_a
