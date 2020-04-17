@@ -76,7 +76,7 @@ RSpec.describe Enumerable do
             end
 
             it 'returns true when any of the number in the array is true' do
-                expect(arr.my_any? { |i| i == 4 }).to eql(true)
+                expect(arr.my_any? { |i| i.class != Regexp }).to eql(true)
             end
         end
 
