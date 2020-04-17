@@ -1,4 +1,5 @@
 # enumerable methods
+
 module Enumerable
   def my_each
     arr = self
@@ -98,23 +99,24 @@ module Enumerable
   def my_count(args = nil)
     arr = self
     count = 0
-    if !args.nil?
-      arr.my_select { |i| i == args }.my_each { count += 1 }
+    block1 = proc { |i| count += 1 if yield i }
+    block2 = proc { |number| count += 1 if number == args }
+    if args != nil
+      arr.my_select{ |i| i == args }.my_each { count += 1}
       return count
     elsif block_given?
-      arr.my_each do
-        result = count += 1
-        yield(result)
-      end
+      arr.my_each(&block1)
     else
+      arr.each(&block2) unless args.nil?
       my_each { count += 1 }
     end
     count
   end
 
+
   def my_inject(start = nil, arg = nil)
     arr = self
-    if arg == nil? && block_given?
+    if block_given? && arg.nil?
       result = start
       arr.my_each do |i|
         result =
@@ -124,23 +126,26 @@ module Enumerable
             yield(result, i)
           end
       end
-    elsif (start.class != Symbol && arg.nil?) && start.class == Integer
-      warn "The value #{start} is not a symbol rep"
-      abort
-    elsif start.class == Symbol
-      if start == :+
-        result = arr.my_inject { |i, v| i + v }
-      elsif start == :*
-        result = arr.my_inject { |i, v| i * v }
-      elsif start == :-
-        result = arr.my_inject { |i, v| i - v }
-      elsif start == :/
-        result = arr.my_inject { |i, v| i / v }
+    else
+      result = nil
+      if (start.class != Symbol && arg.nil?) && start.class == Integer
+        warn "#{start} is not a symbol nor a string"
+        abort
+      elsif start.class == Symbol
+        if start == :+
+          result = arr.my_inject { |i , v| i + v }
+        elsif start == :*
+          result = arr.my_inject { |i , v| i * v  }
+        elsif start == :-
+          result = arr.my_inject { |i , v| i - v  }
+        elsif start == :/
+          result = arr.my_inject { |i , v| i / v  }
+        end
+      elsif start.class == Integer && arg.class == Symbol
+        new_arr = arr.to_a
+        new_arr.unshift(start)
+        result = new_arr.my_inject(arg)
       end
-    elsif start.class == Integer && arg.class == Symbol
-      new_arr = arr.to_a
-      new_arr.unshift(start)
-      result = new_arr.my_inject(arg)
     end
     result
   end

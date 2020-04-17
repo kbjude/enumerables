@@ -132,7 +132,7 @@ RSpec.describe Enumerable do
     describe '#my_count' do
         context 'When a block is given' do
             it 'counts the items in the array and returns total' do
-                expect(arr.my_count { |i| }).to eql(count)
+                expect(arr.my_count { |i| i < 4 }).to eql(4)
             end
 
         end
