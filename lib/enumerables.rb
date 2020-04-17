@@ -69,17 +69,18 @@ module Enumerable
 
   def my_none?(arg = nil)
     arr = self
+    returned = true
     if block_given?
       arr.my_each do |i|
-        return false if yield i
+        return returned = false if yield i
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| false if i =~ arg }
-    elsif arr.my_each { |i| false if i == arg && i.class <= arg.class }
+      arr.my_each { |i| returned = false if i =~ arg }
+    elsif arr.my_each { |i| returned = false if i == arg && i.class <= arg.class }
     else
-      my_each { |i| return false if i.is_a? arg }
+      my_each { |i| return returned = false if i.is_a? arg }
     end
-    true
+    returned
   end
 
   def my_map
