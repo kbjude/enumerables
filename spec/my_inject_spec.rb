@@ -1,14 +1,15 @@
-require './lib/enumerables'
+# require '../lib/enumerables'
 
 RSpec.describe Enumerable do
 
     let(:data) {[3,4,5,6,4]}
     
     describe '#my_inject' do
-        xcontext 'When block is not given' do
+        context 'When block is not given' do
 
-            xit 'when a number and a symbol are passed' do
-                expect(data.my_inject( 5, :* )).to eql(data.inject(3600,:+))
+            it 'when a number and a symbol are passed' do
+                arr = [3,4,5,6,4]
+                expect(data.my_inject( 5, :* )).to eql(data.inject(5,:*))
             end
 
             it 'when a symbol is given' do

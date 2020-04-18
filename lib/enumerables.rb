@@ -59,8 +59,9 @@ module Enumerable
         return true if yield(i)
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| true if i =~ arg }
-    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
+      arr.my_each { |i| return true if i =~ arg }
+    elsif arg.class != Class
+      arr.my_each { |i| return true if i == arg && i.class == arg.class }
     else
       my_each { |i| return true if i.is_a? arg }
     end
@@ -114,7 +115,6 @@ module Enumerable
     count
   end
 
-
   def my_inject(start = nil, arg = nil)
     arr = self
     if block_given? && arg.nil?
@@ -143,7 +143,7 @@ module Enumerable
           result = arr.my_inject { |i , v| i / v }
         end
       elsif start.class == Integer && arg.class == Symbol
-        new_arr = arr.to_a
+        new_arr = arr.clone
         new_arr.unshift(start)
         result = new_arr.my_inject(arg)
       end

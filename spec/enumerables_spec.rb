@@ -83,7 +83,7 @@ RSpec.describe Enumerable do
         context 'When no block is given but arguments' do
 
             it 'returns true when the class of one of the items in the array is similar to the class for the argument' do
-                expect(arr.my_any?(arg.class == Integer)).to eql(false) #supposed to be true
+                expect(arr.my_any?(Integer)).to eql(true) #supposed to be true
             end
         end
     end
