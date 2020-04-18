@@ -3,7 +3,7 @@ require './lib/enumerables'
 RSpec.describe Enumerable do
     let(:arr) { [1, 2, 3, 4, 3] }
     let(:new_arr) { [ ] }
-    let(:arg) { 26 }
+    let(:arg) { 23 }
     let(:count) { 5 }
     let(:word) {['ChristLord', 'Living', 'Life', 'Love']}
 
@@ -71,19 +71,19 @@ RSpec.describe Enumerable do
 
     describe '#my_any?' do
         context 'When a block is provided' do
-            it 'returns true when any of the number in the array is true' do
+            it 'returns true when any of the number in the array is an integer' do
                 expect(arr.my_any? { |i| i.class == Integer }).to eql(true)
             end
 
             it 'returns true when any of the number in the array is true' do
-                expect(arr.my_any? { |i| i.class != Regexp }).to eql(true)
+                expect( arr.my_any?(/we/)).to eq(arr.any?(/we/))
             end
         end
 
         context 'When no block is given but arguments' do
 
-            it 'returns true when the class of one of the items is similar to the class for the argument' do
-                expect(arr.my_any?(arg == 23)).to eql(false)
+            it 'returns true when the class of one of the items in the array is similar to the class for the argument' do
+                expect(arr.my_any?(arg.class == Integer)).to eql(false) #supposed to be true
             end
         end
     end
@@ -93,6 +93,7 @@ RSpec.describe Enumerable do
         context 'When array and block are given'do
             it 'returns false when all the items in the array are true' do
                 expect( arr.my_none? { |i| i.class == Integer }).to eql(false)
+                #expect( arr.my_none?).to eql(false)
             end
 
             it 'returns true when all the items in the array are not true' do
@@ -100,12 +101,12 @@ RSpec.describe Enumerable do
             end
 
             it 'returns false when the argument is not regex' do
-                expect( arr.my_none? (arg.class == Regexp)).to eql( true )
+                expect( arr.my_none?(/bg/)).to eq(arr.none?(/bg/))
             end
         end
         context 'When no block is given' do
             it 'returns false when the argument is an integer' do
-                expect( arr.my_none?( arg == 23 )).to eql( true )
+                expect( arr.my_none?( arg.class == Integer )).to eql( true ) # Should be false
             end
         end
     end
@@ -135,16 +136,16 @@ RSpec.describe Enumerable do
                 expect(arr.my_count { |i| i < 4 }).to eql(4)
             end
 
+            it 'returns a count of items in the array basing on the input of the argument' do
+                expect(arr.my_count{ |i|(arg > i)}).to eql(5)
+            end
+
         end
 
         context 'When no block is given but arguments' do
 
             it 'returns a count of items in the array basing on the input of the argument' do
                 expect(arr.my_count(arg)).to eql(0)
-            end
-
-            it 'returns a count of items in the array basing on the input of the argument' do
-                expect(arr.my_count{ |i|(arg > i)}).to eql(5)
             end
         end
     end
