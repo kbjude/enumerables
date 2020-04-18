@@ -91,9 +91,8 @@ RSpec.describe Enumerable do
     describe '#.my_none?' do
 
         context 'When array and block are given'do
-            it 'returns false when all the items in the array are true' do
+            it 'returns false when one or all the items in the array are integer' do
                 expect( arr.my_none? { |i| i.class == Integer }).to eql(false)
-                #expect( arr.my_none?).to eql(false)
             end
 
             it 'returns true when all the items in the array are not true' do
