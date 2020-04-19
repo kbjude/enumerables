@@ -59,7 +59,7 @@ RSpec.describe Enumerable do
             end
 
             it 'returns an true or false depending on the argument' do
-                expect( arr.my_all? (arg.class != Regexp)).to eql( true )
+                expect( arr.my_all?(/r/)).to eql(arr.all?(/r/))
             end
         end
         context 'When no block is given' do
@@ -83,7 +83,7 @@ RSpec.describe Enumerable do
         context 'When no block is given but arguments' do
 
             it 'returns true when the class of one of the items in the array is similar to the arguments' do
-                expect(arr.my_any?(Integer)).to eql(true) #supposed to be true
+                expect(arr.my_any?(Integer)).to eql(true)
             end
         end
     end
@@ -105,7 +105,7 @@ RSpec.describe Enumerable do
         end
         context 'When no block is given' do
             it 'returns false when the argument is an integer' do
-                expect( arr.my_none?( arg.class == Integer )).to eql( true ) # Should be false
+                expect( arr.my_none?( arg.class == Integer )).to eql( true )
             end
         end
     end

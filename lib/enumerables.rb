@@ -44,12 +44,12 @@ module Enumerable
         return false unless yield(i)
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| true if i =~ arg }
-    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
+      arr.my_each { |i| return false if i !=~ arg }
+    elsif arr.my_each { |i| return true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false unless i.is_a? arg }
     end
-    true
+    return true
   end
 
   def my_any?(arg = nil)
