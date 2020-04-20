@@ -1,4 +1,5 @@
 # enumerable methods
+
 module Enumerable
   def my_each
     arr = self
@@ -14,9 +15,10 @@ module Enumerable
   def my_each_with_index
     arr = self
     if block_given?
-      arr.my_each do |i|
-        v = arr.find_index(i)
-        yield(i, v)
+      index = 0
+      arr.my_each do |value|
+        yield(index, value)
+        index += 1
       end
     else
       arr.to_enum(:my_each_with_index)
@@ -43,12 +45,12 @@ module Enumerable
         return false unless yield(i)
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| true if i =~ arg }
-    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
+      arr.my_each { |i| return false if i !=~ arg }
+    elsif arr.my_each { |i| return true if i == arg && i.class <= arg.class }
     else
       my_each { |i| return false unless i.is_a? arg }
     end
-    true
+    return true
   end
 
   def my_any?(arg = nil)
@@ -58,8 +60,9 @@ module Enumerable
         return true if yield(i)
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| true if i =~ arg }
-    elsif arr.my_each { |i| true if i == arg && i.class <= arg.class }
+      arr.my_each { |i| return true if i =~ arg }
+    elsif arg.class != Class
+      arr.my_each { |i| return true if i == arg && i.class == arg.class }
     else
       my_each { |i| return true if i.is_a? arg }
     end
@@ -68,17 +71,18 @@ module Enumerable
 
   def my_none?(arg = nil)
     arr = self
+    returned = true
     if block_given?
       arr.my_each do |i|
-        return false if yield i
+        return returned = false if yield i
       end
     elsif arg.class == Regexp
-      arr.my_each { |i| false if i =~ arg }
-    elsif arr.my_each { |i| false if i == arg && i.class <= arg.class }
+      arr.my_each { |i| returned = false if i =~ arg }
+    elsif arr.my_each { |i| returned = false if i == arg && i.class <= arg.class }
     else
-      my_each { |i| return false if i.is_a? arg }
+      my_each { |i| return returned = false if i.is_a? arg }
     end
-    true
+    returned
   end
 
   def my_map
@@ -98,15 +102,15 @@ module Enumerable
   def my_count(args = nil)
     arr = self
     count = 0
-    if !args.nil?
-      arr.my_select { |i| i == args }.my_each { count += 1 }
+    block1 = proc { |i| count += 1 if yield i }
+    block2 = proc { |number| count += 1 if number == args }
+    if args != nil
+      arr.my_select{ |i| i == args }.my_each { count += 1}
       return count
     elsif block_given?
-      arr.my_each do
-        result = count += 1
-        yield(result)
-      end
+      arr.my_each(&block1)
     else
+      arr.each(&block2) unless args.nil?
       my_each { count += 1 }
     end
     count
@@ -114,7 +118,7 @@ module Enumerable
 
   def my_inject(start = nil, arg = nil)
     arr = self
-    if arg == nil? && block_given?
+    if block_given? && arg.nil?
       result = start
       arr.my_each do |i|
         result =
@@ -124,23 +128,26 @@ module Enumerable
             yield(result, i)
           end
       end
-    elsif (start.class != Symbol && arg.nil?) && start.class == Integer
-      warn "The value #{start} is not a symbol rep"
-      abort
-    elsif start.class == Symbol
-      if start == :+
-        result = arr.my_inject { |i, v| i + v }
-      elsif start == :*
-        result = arr.my_inject { |i, v| i * v }
-      elsif start == :-
-        result = arr.my_inject { |i, v| i - v }
-      elsif start == :/
-        result = arr.my_inject { |i, v| i / v }
+    else
+      result = nil
+      if (start.class != Symbol && arg.nil?) && start.class == Integer
+        warn "#{start} is not a symbol nor a string"
+        abort
+      elsif start.class == Symbol
+        if start == :+
+          result = arr.my_inject { |i , v| i + v }
+        elsif start == :*
+          result = arr.my_inject { |i , v| i * v }
+        elsif start == :-
+          result = arr.my_inject { |i , v| i - v }
+        elsif start == :/
+          result = arr.my_inject { |i , v| i / v }
+        end
+      elsif start.class == Integer && arg.class == Symbol
+        new_arr = arr.clone
+        new_arr.unshift(start)
+        result = new_arr.my_inject(arg)
       end
-    elsif start.class == Integer && arg.class == Symbol
-      new_arr = arr.to_a
-      new_arr.unshift(start)
-      result = new_arr.my_inject(arg)
     end
     result
   end
