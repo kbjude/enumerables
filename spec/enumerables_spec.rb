@@ -49,10 +49,6 @@ RSpec.describe Enumerable do
 
         context 'When block is given'do
 
-            it 'returns false when atleast one array item is not true' do
-                expect( arr.my_all? { |i| i.even? }).to eql(arr.all?{ |i| i.even? })
-            end
-
             it 'returns true or false depending on the argument' do
                 expect( arr.my_all?(/r/)).to eql(arr.all?(/r/))
             end
