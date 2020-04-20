@@ -109,17 +109,17 @@ RSpec.describe Enumerable do
     describe '#my_map' do
         context 'When a block is provided' do
             it 'creates a new empty array to receive the items from the other array' do
-                expect(arr.my_map { |i| i }).to eql([1, 2, 3, 4, 3])
+                expect(arr.my_map { |i| i }).to eql(arr.map { |i| i })
             end
 
-            it 'returns true and false items in a new with ternary operators ' do
-                expect(arr.my_map { |i| i.even? }).to eql([false, true, false, true, false])
+            it 'returns true and false items in a new array' do
+                expect(arr.my_map { |i| i.even? }).to eql(arr.map { |i| i.even?})
             end
         end
 
         context 'When no block is given but arguments' do
 
-            it 'returns true when the class of one of the items is similar to the class for the argument' do
+            it 'returns true when the class is similar to the class for the argument' do
                 expect(arr.my_map).to be_instance_of(Enumerator)
             end
         end
