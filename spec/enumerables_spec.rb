@@ -35,7 +35,7 @@ RSpec.describe Enumerable do
 
         context 'When array and block are given'do
             it 'returns the selected items in the array' do
-                 expect( arr.my_select { |i| i > 3 }).to eql([4])
+                 expect( arr.my_select { |i| i > 3 }).to eql(arr.select { |i| i > 3})
             end
         end
         context 'When no block is given' do
