@@ -72,7 +72,7 @@ RSpec.describe Enumerable do
             end
 
             it 'returns true when any of the number in the array is true' do
-                expect( arr.my_any?(/[0-9]/)).to eq(arr.any?(/[0-9]/))
+                expect( arr.my_any?(/d/)).to eq(arr.any?(/d/))
             end
         end
 
