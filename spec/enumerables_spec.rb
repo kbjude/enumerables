@@ -10,7 +10,7 @@ RSpec.describe Enumerable do
 
     describe '#.my_each' do
 
-        context 'When array and block are given'do
+        context 'When block is given'do
             it 'returns the items in the array' do
                 expect( arr.my_each_with_index { |i, v| i}).to eql( arr.each_with_index { |i, v| i} )
             end
