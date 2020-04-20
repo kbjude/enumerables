@@ -41,6 +41,7 @@ RSpec.describe Enumerable do
         context 'When no block is given' do
             it 'returns an enumerator' do
                  expect( arr.my_select {|i| i == 3 }).to eql( [ 3, 3 ] )
+                 expect(arr.my_select {|i| i == 3 }).to eql(arr.my_select {|i| i == 3 })
             end
         end
      end
