@@ -86,13 +86,13 @@ RSpec.describe Enumerable do
 
     describe '#.my_none?' do
 
-        context 'When array and block are given'do
-            it 'returns false when one or all the items in the array are integer' do
+        context 'When block is given'do
+            it 'returns false when atleast one of the items in the array is an integer' do
                 expect( arr.my_none? { |i| i.class == Integer }).to eql(false)
             end
 
             it 'returns true when all the items in the array are not true' do
-                expect( arr.my_none? { |i| i.even? }).to eql(false)
+                expect( arr.my_none? { |i| i.even? }).to eql(arr.none? { |i| i.even? })
             end
 
             it 'returns false when the argument is not regex' do
@@ -101,7 +101,7 @@ RSpec.describe Enumerable do
         end
         context 'When no block is given' do
             it 'returns false when the argument is an integer' do
-                expect( arr.my_none?( arg.class == Integer )).to eql( true )
+                expect( arr.my_none?( arg.class == Integer )).to eql(arr.none?( arg.class == Integer ))
             end
         end
     end
