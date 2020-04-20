@@ -15,9 +15,10 @@ module Enumerable
   def my_each_with_index
     arr = self
     if block_given?
-      arr.my_each do |i|
-        v = arr.find_index(i)
-        yield(i, v)
+      index = 0
+      arr.my_each do |value|
+        yield(index, value)
+        index += 1
       end
     else
       arr.to_enum(:my_each_with_index)
