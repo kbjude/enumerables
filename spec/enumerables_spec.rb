@@ -55,7 +55,7 @@ RSpec.describe Enumerable do
         end
         context 'When no block is given' do
             ints = [3,3,3]
-            it 'returns an true or false depending on the argument' do
+            it 'returns true or false depending on the argument' do
                 expect( ints.my_all?(3)).to eql(ints.all?(3))
             end
         end
@@ -74,7 +74,7 @@ RSpec.describe Enumerable do
 
         context 'When no block is given but arguments' do
 
-            it 'returns true when the class of one of the items in the array is similar to the arguments' do
+            it 'returns true the item class  is similar to the argument' do
                 expect(arr.my_any?(Integer)).to eql(arr.any?(Integer))
             end
         end
