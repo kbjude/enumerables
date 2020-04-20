@@ -64,7 +64,7 @@ RSpec.describe Enumerable do
     describe '#my_any?' do
         context 'When a block is given' do
             it 'returns true when any of the number in the array is an integer' do
-                expect(arr.my_any? { |i| i.class == Integer }).to eql(true)
+                expect(arr.my_any? {|i| i > 2}).to eql(arr.any? {|i| i > 2})
             end
 
             it 'returns true when any of the number in the array is true' do
