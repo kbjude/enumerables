@@ -50,7 +50,7 @@ RSpec.describe Enumerable do
         context 'When block is given'do
 
             it 'returns true or false depending on the argument' do
-                expect( arr.my_all?(/r/)).to eql(arr.all?(/r/))
+                expect( arr.my_all?(/d/)).to eql(arr.all?(/d/))
             end
         end
         context 'When no block is given' do
