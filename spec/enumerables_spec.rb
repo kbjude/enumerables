@@ -128,11 +128,11 @@ RSpec.describe Enumerable do
     describe '#my_count' do
         context 'When a block is given' do
             it 'counts the items in the array and returns total' do
-                expect(arr.my_count { |i| i < 4 }).to eql(4)
+                expect(arr.my_count { |i| i < 4 }).to eql(arr.count { |i| i < 4 })
             end
 
-            it 'returns a count of items in the array basing on the input of the argument' do
-                expect(arr.my_count{ |i|(arg > i)}).to eql(5)
+            it 'returns a count of array items according to the argument provided' do
+                expect(arr.my_count{ |i|(arg > i)}).to eql(arr.count{ |i|(arg > i)})
             end
 
         end
@@ -140,7 +140,7 @@ RSpec.describe Enumerable do
         context 'When no block is given but arguments' do
 
             it 'returns a count of items in the array basing on the input of the argument' do
-                expect(arr.my_count(arg)).to eql(0)
+                expect(arr.my_count(arg)).to eql(arr.count(arg))
             end
         end
     end
