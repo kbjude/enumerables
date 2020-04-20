@@ -12,9 +12,10 @@ RSpec.describe Enumerable do
 
         context 'When array and block are given'do
             it 'returns the items in the array' do
-                expect { arr.my_each { |i| print i }}.to output('12343').to_stdout
+                expect( arr.my_each_with_index { |i, v| i}).to eql( arr.each_with_index { |i, v| i} )
             end
         end
+
         context 'When no block is given' do
             it 'returns an enumerator' do
                 expect(arr.my_each).to be_instance_of(Enumerator)
@@ -23,12 +24,6 @@ RSpec.describe Enumerable do
     end
 
     describe '#.my_each_with_index' do
-
-        context 'When array and block are given'do
-            it 'returns each item in the array with its index' do
-                expect { arr.my_each_with_index { |i, v| print i, v }}.to output('1021324332').to_stdout
-            end
-        end
         context 'When no block is given' do
             it 'returns an enumerator' do
                 expect(arr.my_each_with_index).to be_instance_of(Enumerator)
@@ -63,8 +58,9 @@ RSpec.describe Enumerable do
             end
         end
         context 'When no block is given' do
+            ints = [3,3,3]
             it 'returns an true or false depending on the argument' do
-                expect( arr.my_all?( arg.class == Integer )).to eql( true )
+                expect( ints.my_all?(3)).to eql(ints.all?(3))
             end
         end
     end
