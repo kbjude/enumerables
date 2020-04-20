@@ -13,21 +13,21 @@ RSpec.describe Enumerable do
             end
 
             it 'when a symbol is given' do
-                expect(data.my_inject(:*)).to eql(1440)
+                expect(data.my_inject(:*)).to eql(data.inject(:*))
             end
         end
         context 'When block is given' do
 
             it 'when items of the array arrat multiplied against each other' do
-                expect(data.my_inject { |i| i * i }).to eql(43046721)
+                expect(data.my_inject { |i| i * i }).to eql(data.inject{ |i| i * i })
             end
 
             it 'when a number and a symbol are passed' do
-                expect(data.my_inject{ | v, i| 5 * i }).to eql(20)
+                expect(data.my_inject{ | v, i| 5 * i }).to eql(data.inject{ | v, i| 5 * i })
             end
 
             it 'returns all the items in a range' do
-                expect((2..15).my_inject(:*)).to eql(1307674368000)
+                expect((2..15).my_inject(:*)).to eql((2..15).inject(:*))
             end
         end
     end
